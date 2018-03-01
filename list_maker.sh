@@ -1,4 +1,11 @@
 #!/bin/sh
+#function to handle inturrupt
+cntr_c() {
+    rm tmp.txt cs-upper cs-lower
+    exit
+}
+#catches inturrupt
+trap cntr_c SIGINT
 
 #nested while loop because it was easier than writing every variable name
 #also without additional loop the script was excluding the last line
@@ -15,6 +22,8 @@ while read f || [[ -n $f ]]; do
         elif [ "$level" == "sophomore" ] || [ "$level" == "freshman" ] || [ "$level" == "Sophomore" ] || [ "$level" == "Freshman" ]; then
             echo "$email_address \t ( $first $last )" >> cs-lower
         fi
+        sleep 5
+        
         #take input from tmp.txt
     done < tmp.txt
     #86 tmp.txt
